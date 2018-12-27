@@ -42,6 +42,12 @@ describe('AppComponent', () => {
     expect(splashScreenSpy.hide).toHaveBeenCalled();
   });
 
+  it('should have 0 pages', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component =  fixture.componentInstance;
+    expect(component.pages.length).toBe(0);
+  });
+
   // TODO: add more tests!
 
 });

@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
+  let compiled;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,6 +19,7 @@ describe('HomePage', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomePage);
     component = fixture.componentInstance;
+    compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
   });
 
@@ -26,7 +28,6 @@ describe('HomePage', () => {
   });
 
   it("should render title in a ion-title tag", () => {
-    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector("ion-title").textContent).toContain(
       "Ionic Blank"
     );
