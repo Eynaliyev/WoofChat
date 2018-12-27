@@ -8,7 +8,10 @@ const routes: Routes = [
 		path: "chatroom",
 		loadChildren: "./chatroom/chatroom.module#ChatroomPageModule"
 	},
-	{ path: "login", loadChildren: "./login/login.module#LoginPageModule" }
+	{ path: "login", loadChildren: "./login/login.module#LoginPageModule" },
+  { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsPageModule' },
+  { path: 'user-profile', loadChildren: './user-profile/user-profile.module#UserProfilePageModule' },
+  { path: 'my-profile', loadChildren: './my-profile/my-profile.module#MyProfilePageModule' }
 ];
 
 @NgModule({
