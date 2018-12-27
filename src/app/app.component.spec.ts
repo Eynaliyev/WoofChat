@@ -46,6 +46,4 @@ describe("AppComponent", () => {
     const component = fixture.componentInstance;
     expect(component.pages.length).toBe(0);
   });
-
-  // TODO: add more tests!
 });
