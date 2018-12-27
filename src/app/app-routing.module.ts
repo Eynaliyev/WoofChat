@@ -7,7 +7,8 @@ const routes: Routes = [
 	{
 		path: "chatroom",
 		loadChildren: "./chatroom/chatroom.module#ChatroomPageModule"
-	}
+	},
+	{ path: "login", loadChildren: "./login/login.module#LoginPageModule" }
 ];
 
 @NgModule({
