@@ -8,6 +8,7 @@ import { User } from "./shared/models/user.model";
 import { HomePage } from "./home/home.page";
 import { ContactsPage } from "./contacts/contacts.page";
 import { MyProfilePage } from "./my-profile/my-profile.page";
+import firebase from "firebase";
 
 @Component({
 	selector: "app-root",
