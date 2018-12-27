@@ -24,4 +24,11 @@ describe('HomePage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it("should render title in a ion-title tag", () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector("ion-title").textContent).toContain(
+      "Ionic Blank"
+    );
+  });
 });
