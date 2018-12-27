@@ -41,10 +41,10 @@ describe("AppComponent", () => {
 		expect(splashScreenSpy.hide).toHaveBeenCalled();
 	});
 
-	it("should have 0 pages", () => {
+	it("should have 3 pages", () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		const component = fixture.componentInstance;
-		expect(component.pages.length).toBe(0);
+		expect(component.pages.length).toBe(3);
 	});
 
 	it("should have a root page", () => {
