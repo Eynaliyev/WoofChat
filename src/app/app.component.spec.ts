@@ -46,4 +46,10 @@ describe("AppComponent", () => {
 		const component = fixture.componentInstance;
 		expect(component.pages.length).toBe(0);
 	});
+
+	it("should have a root page", () => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const component = fixture.componentInstance;
+		expect(component.rootPage).toBeDefined();
+	});
 });
