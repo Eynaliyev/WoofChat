@@ -40,6 +40,7 @@ export namespace Environment {
 		position: "bottom" // Position of Toast, top, middle, or bottom.
 	};
 	export const toastDuration = 5000; // Duration (in milliseconds) of how long toast messages should show before they are hidden.
+	export const googleMapKey = "my key";
 }
 
 /*
