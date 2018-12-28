@@ -9,13 +9,13 @@ import "rxjs/add/operator/catch";
 import { User } from "../models/user.model";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireDatabase } from "@angular/fire/database";
-import { ReplaySubject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import * as moment from "moment";
 import { UtilService } from "./util.service";
 
 @Injectable()
 export class UserService {
-	public currentUser: ReplaySubject<User> = new ReplaySubject<User>();
+	public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>();
 	private access_token = ``;
 
 	constructor(
@@ -27,15 +27,15 @@ export class UserService {
 	getUserById(id: string): Observable<any> {
 		return this.afs.doc(`/users/${id}`).valueChanges();
 	}
-	getCurrentUser(): ReplaySubject<User> {
+	getCurrentUser(): BehaviorSubject<User> {
 		return this.currentUser;
 	}
 	setAccessToken(token): void {
 		this.access_token = token;
 	}
 	setCurrentUser(usr): Promise<any> {
+		const uid = usr["uid"];
 		return new Promise<any>(resolve => {
-			const uid = usr["uid"];
 			this.getUserById(uid).subscribe(
 				user => {
 					if (user) {
