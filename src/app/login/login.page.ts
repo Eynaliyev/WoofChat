@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { HomePage } from "../home/home.page";
+import { UserService } from "../shared/services/user.service";
+import { AuthService } from "../shared/services/auth.service";
+import { LoadingController } from "@ionic/angular";
 
 @Component({
 	selector: "app-login",
@@ -10,7 +13,6 @@ export class LoginPage implements OnInit {
 	loader: any;
 
 	constructor(
-		public navCtrl: NavController,
 		public loadingCtrl: LoadingController,
 		public authSrvc: AuthService,
 		public userSrvc: UserService,
@@ -20,7 +22,7 @@ export class LoginPage implements OnInit {
 	ngOnInit() {}
 
 	goToMeetSomebody() {
-		this.navCtrl.setRoot(HomePage);
+		//this.navCtrl.setRoot(HomePage);
 	}
 	facebookLogin(lastTry?: boolean): void {
 		const env = this;
@@ -68,7 +70,7 @@ export class LoginPage implements OnInit {
 	}
 	presentLoading() {
 		this.loader = this.loadingCtrl.create({
-			content: "Authenticating..."
+			message: "Authenticating..."
 		});
 		this.loader.present();
 	}
