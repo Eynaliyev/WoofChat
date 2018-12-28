@@ -61,23 +61,20 @@ export class AppComponent implements OnInit {
 					this.userSrvc
 						.setCurrentUser(user["providerData"][0])
 						.then(() => {
-							return this.userSrvc
-								.getCurrentUser()
-								.take(2)
-								.subscribe(
-									result => {
-										if (result) {
-											this.currentUser = result;
-											console.log("current user :", this.currentUser);
-											this.rootPage = HomePage;
-										} else {
-											this.rootPage = LoginPage;
-										}
-									},
-									err => {
-										console.error(err);
+							return this.userSrvc.getCurrentUser().subscribe(
+								result => {
+									if (result) {
+										this.currentUser = result;
+										console.log("current user :", this.currentUser);
+										this.rootPage = HomePage;
+									} else {
+										this.rootPage = LoginPage;
 									}
-								);
+								},
+								err => {
+									console.error(err);
+								}
+							);
 						})
 						.catch(err => {
 							console.error("Error:", err);
