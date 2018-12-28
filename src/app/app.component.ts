@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -8,13 +8,13 @@ import { User } from "./shared/models/user.model";
 import { HomePage } from "./home/home.page";
 import { ContactsPage } from "./contacts/contacts.page";
 import { MyProfilePage } from "./my-profile/my-profile.page";
-import firebase from "firebase";
+import * as firebase from "firebase";
 
 @Component({
 	selector: "app-root",
 	templateUrl: "app.component.html"
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	public pages: any[] = [
 		{
 			title: "Meet people Nearby",
@@ -49,5 +49,45 @@ export class AppComponent {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
 		});
+	}
+	ngOnInit() {
+		firebase.auth().onAuthStateChanged(
+			user => {
+				if (user) {
+					//should be after the user has been set
+					this.userSrvc
+						.setCurrentUser(user["providerData"][0])
+						.then(() => {
+							return this.userSrvc
+								.getCurrentUser()
+								.take(2)
+								.subscribe(
+									result => {
+										if (result) {
+											this.currentUser = result;
+											console.log("current user :", this.currentUser);
+											this.rootPage = HomePage;
+										} else {
+											this.rootPage = LoginPage;
+										}
+									},
+									err => {
+										console.error(err);
+									}
+								);
+						})
+						.catch(err => {
+							console.error("Error:", err);
+							this.rootPage = LoginPage;
+						});
+				} else {
+					this.rootPage = LoginPage;
+				}
+			},
+			err => {
+				console.error(err);
+				this.rootPage = LoginPage;
+			}
+		);
 	}
 }
