@@ -6,7 +6,7 @@ import "rxjs/add/operator/toPromise";
 import "rxjs/add/observable/forkJoin";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import { User } from "../models/user.model";
+import { User, Photo } from "../models/user.model";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { BehaviorSubject } from "rxjs";
@@ -15,7 +15,7 @@ import { UtilService } from "./util.service";
 
 @Injectable()
 export class UserService {
-	public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>();
+	public currentUser: BehaviorSubject<User>;
 	private access_token = ``;
 
 	constructor(
@@ -40,7 +40,9 @@ export class UserService {
 				user => {
 					if (user) {
 						const parsedUser = this.toUser(user);
-						this.currentUser.next(parsedUser);
+						this.currentUser
+							? this.currentUser.next(parsedUser)
+							: (this.currentUser = new BehaviorSubject(parsedUser));
 						localStorage.setItem("currentUser", JSON.stringify(user));
 						resolve(true);
 					} else {
@@ -78,7 +80,9 @@ export class UserService {
 			);
 		});
 	}
-	mapFbtoModel(data) {
+	mapFbtoModel(data): User {
+		const photosData = this.parsePhotosData(data);
+		const profilePhotoData = this.parseFBProfilePhotoData(data);
 		const res = {
 			about: data.about ? data.about : "",
 			birthday: data.birthday ? data.birthday : "",
@@ -92,18 +96,8 @@ export class UserService {
 			company: data.company ? data.company : "",
 			currentLocation: data.currentLocation ? data.currentLocation : [],
 			interests: data.interests ? data.interests : [],
-			photos: data.photos
-				? data.photos.forEach(photo => {
-						photo = {
-							imgUrl: photo.imgUrl
-						};
-				  })
-				: [{ imgUrl: "" }],
-			profilePhoto: data.picture.data.url
-				? {
-						imgUrl: data.picture.data.url
-				  }
-				: { imgUrl: "" },
+			photos: photosData,
+			profilePhoto: profilePhotoData,
 			relationshipStatus: data.relationshipStatus
 				? data.relationshipStatus
 				: [],
@@ -114,6 +108,26 @@ export class UserService {
 			warning: data.warning ? data.warning : ""
 		};
 		return res;
+	}
+	parsePhotosData(data): Photo[] {
+		if (data.photos) {
+			return data.photos.forEach(photo => {
+				photo = {
+					imgUrl: photo.imgUrl
+				};
+			});
+		} else {
+			return [{ imgUrl: "" }];
+		}
+	}
+	parseFBProfilePhotoData(data): Photo {
+		if (data.picture.data.url) {
+			return {
+				imgUrl: data.picture.data.url
+			};
+		} else {
+			return { imgUrl: "" };
+		}
 	}
 	// create user in firebase
 	createUser(userCredentials): Promise<any> {
@@ -129,7 +143,9 @@ export class UserService {
 	}
 	updateUser(userData: User): Promise<any> {
 		localStorage.setItem("currentUser", JSON.stringify(userData));
-		this.currentUser.next(userData);
+		this.currentUser
+			? this.currentUser.next(userData)
+			: (this.currentUser = new BehaviorSubject(userData));
 		return this.afs
 			.doc(`users/${userData.id}`)
 			.set(userData, { merge: true })
@@ -138,6 +154,8 @@ export class UserService {
 	}
 	// converts the backend user into the viewmodel of the user
 	toUser(data): User {
+		const photosData = this.parsePhotosData(data);
+		const profilePhotoData = this.parseProfilePhotoData(data);
 		const user = {
 			about: data.about ? data.about : "",
 			birthday: data.birthday ? data.birthday : "",
@@ -151,18 +169,8 @@ export class UserService {
 			company: data.company ? data.company : "",
 			currentLocation: data.currentLocation ? data.currentLocation : [],
 			interests: data.interests ? data.interests : [],
-			photos: data.photos
-				? data.photos.forEach(photo => {
-						photo = {
-							imgUrl: photo.imgUrl
-						};
-				  })
-				: [{ imgUrl: "" }],
-			profilePhoto: data.profilePhoto
-				? {
-						imgUrl: data.profilePhoto.imgUrl
-				  }
-				: { imgUrl: "" },
+			photos: photosData,
+			profilePhoto: profilePhotoData,
 			relationshipStatus: data.relationshipStatus
 				? data.relationshipStatus
 				: [],
@@ -173,6 +181,15 @@ export class UserService {
 			warning: data.warning ? data.warning : ""
 		};
 		return user;
+	}
+	parseProfilePhotoData(data): Photo {
+		if (data.profilePhoto) {
+			return {
+				imgUrl: data.profilePhoto.imgUrl
+			};
+		} else {
+			return { imgUrl: "" };
+		}
 	}
 	addImage(userId: string, image): Promise<any> {
 		const photos = this.afs.collection(`users/${userId}/photos`);
