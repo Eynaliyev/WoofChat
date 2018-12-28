@@ -1,17 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import "rxjs/add/operator/toPromise";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/observable/forkJoin";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import { User } from "../models/models";
-import { AngularFirestore } from "angularfire2/firestore";
-import { AngularFireDatabase } from "angularfire2/database";
-import { ReplaySubject } from "rxjs/ReplaySubject";
+import { User } from "../models/user.model";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFireDatabase } from "@angular/fire/database";
+import { ReplaySubject } from "rxjs";
 import * as moment from "moment";
-import { UtilService } from "../shared/util.service";
+import { UtilService } from "./util.service";
 
 @Injectable()
 export class UserService {
@@ -24,10 +24,7 @@ export class UserService {
 		private db: AngularFireDatabase,
 		public utilSrvc: UtilService
 	) {}
-	// get a specific User by id - that conforms to the user model
 	getUserById(id: string): Observable<any> {
-		//Observable<User> {
-		// gathering of info
 		return this.afs.doc(`/users/${id}`).valueChanges();
 	}
 	getCurrentUser(): ReplaySubject<User> {
@@ -36,19 +33,17 @@ export class UserService {
 	setAccessToken(token): void {
 		this.access_token = token;
 	}
-	//should return promise that resolves once the data can be returned
 	setCurrentUser(usr): Promise<any> {
 		return new Promise<any>(resolve => {
-			let uid = usr["uid"];
+			const uid = usr["uid"];
 			this.getUserById(uid).subscribe(
 				user => {
 					if (user) {
-						let parsedUser = this.toUser(user);
+						const parsedUser = this.toUser(user);
 						this.currentUser.next(parsedUser);
 						localStorage.setItem("currentUser", JSON.stringify(user));
 						resolve(true);
 					} else {
-						//graph request, create new user with the return
 						this.fetchGraphData()
 							.then(parsedData => {
 								this.createUser(parsedData)
@@ -67,14 +62,14 @@ export class UserService {
 		});
 	}
 	fetchGraphData(): Promise<any> {
-		let url = `https://graph.facebook.com/v2.12/me?access_token=${
+		const url = `https://graph.facebook.com/v2.12/me?access_token=${
 			this.access_token
 		}&fields=id,name,gender,locale,picture.type(large),email,first_name,last_name,birthday`;
 		return new Promise<any>(resolve => {
 			this.http.get(url).subscribe(
 				userInfo => {
 					console.log("user info from fb api: ", JSON.stringify(userInfo));
-					let parsedData = JSON.parse(userInfo["_body"]);
+					const parsedData = JSON.parse(userInfo["_body"]);
 					resolve(parsedData);
 				},
 				err => {
@@ -84,7 +79,7 @@ export class UserService {
 		});
 	}
 	mapFbtoModel(data) {
-		let res = {
+		const res = {
 			about: data.about ? data.about : "",
 			birthday: data.birthday ? data.birthday : "",
 			currentCoords: data.currentCoords ? data.currentCoords : [],
@@ -123,7 +118,7 @@ export class UserService {
 	// create user in firebase
 	createUser(userCredentials): Promise<any> {
 		// convert info to our model
-		let user = this.mapFbtoModel(userCredentials);
+		const user = this.mapFbtoModel(userCredentials);
 		// set it in the backend
 		console.log("creating user: ", user);
 		return this.afs
@@ -143,7 +138,7 @@ export class UserService {
 	}
 	// converts the backend user into the viewmodel of the user
 	toUser(data): User {
-		let user = {
+		const user = {
 			about: data.about ? data.about : "",
 			birthday: data.birthday ? data.birthday : "",
 			currentCoords: data.currentCoords ? data.currentCoords : [],
