@@ -1,3 +1,3 @@
-export const environment = {
-  production: true
-};
+export namespace Environment {
+	export const production = false;
+}
