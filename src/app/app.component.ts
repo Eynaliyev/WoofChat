@@ -9,6 +9,7 @@ import { HomePage } from "./home/home.page";
 import { ContactsPage } from "./contacts/contacts.page";
 import { MyProfilePage } from "./my-profile/my-profile.page";
 import * as firebase from "firebase";
+import { UserService } from "./shared/services/user.service";
 
 @Component({
 	selector: "app-root",
@@ -39,7 +40,9 @@ export class AppComponent implements OnInit {
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
-		private statusBar: StatusBar
+		private statusBar: StatusBar,
+		private authSrvc: AuthService,
+		private userSrvc: UserService
 	) {
 		this.initializeApp();
 	}
@@ -54,7 +57,6 @@ export class AppComponent implements OnInit {
 		firebase.auth().onAuthStateChanged(
 			user => {
 				if (user) {
-					//should be after the user has been set
 					this.userSrvc
 						.setCurrentUser(user["providerData"][0])
 						.then(() => {
