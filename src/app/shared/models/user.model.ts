@@ -24,7 +24,6 @@ interface SocialProfile {
 export class User {
 	constructor(
 		public about: string,
-		public birthday: string,
 		public currentCoords: number[],
 		public email: string,
 		public firstName: string,
@@ -32,6 +31,7 @@ export class User {
 		public id: string,
 		public languages: Language[],
 		public lastName: string,
+		public birthday?: string,
 		public company?: string,
 		public currentLocation?: string,
 		public interests?: Interest[],
