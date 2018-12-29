@@ -1,5 +1,15 @@
-<ion-header>
-	<ion-toolbar> <ion-title>login</ion-title> </ion-toolbar>
-</ion-header>
-
-<ion-content padding> </ion-content>
+<ion-content class="no-scroll">
+	<ion-slides pager="true" id="slides">
+		<ion-slide>
+			<div id="intro-logo"><img src="assets/images/logo/logo.png" /></div>
+			<h3 text-center id="login-heading1" class="light-text grande">
+				adventure begins...
+			</h3>
+		</ion-slide>
+	</ion-slides>
+	<div class="buttons" text-center>
+		<button ion-button color="primary" (click)="facebookLogin()">
+			<b>Login with Facebook</b>
+		</button>
+	</div>
+</ion-content>

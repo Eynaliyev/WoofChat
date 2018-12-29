@@ -1,8 +1,43 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+// Custom global CSS variables
+$colors: (
+	primary: #3498db,
+	secondary: #32db64,
+	danger: #f53d3d,
+	light: #f4f4f4,
+	royal: gold,
+	dark: #222,
+	favorite: #69bb7b,
+	border-color: #e0e0e0,
+	gray: #f7f7f7,
+	fb-color: #3b5998,
+	white: #ffffff,
+	chat-bg: #edecec,
+	bee-gold: #ffcf00,
+	chat-bubble: #c4ebf7,
+	universal: #ffa731
+);
 /** Ionic CSS Variables **/
 :root {
+	// my global vars
+	--ion-color-my---ion-color-my-primary: #3498db;
+	--ion-color-my-secondary: #32db64;
+	--ion-color-my-danger: #f53d3d;
+	--ion-color-my-light: #f4f4f4;
+	--ion-color-my-royal: gold;
+	--ion-color-my-dark: #222;
+	--ion-color-my-favorite: #69bb7b;
+	--ion-color-my-border-color: #e0e0e0;
+	--ion-color-my-gray: #f7f7f7;
+	--ion-color-my-fb-color: #3b5998;
+	--ion-color-my-white: #ffffff;
+	--ion-color-my-chat-bg: #edecec;
+	--ion-color-my-bee-gold: #ffcf00;
+	--ion-color-my-chat-bubble: #c4ebf7;
+	--ion-color-my-universal: #ffa731;
+
 	/** primary **/
 	--ion-color-primary: #3880ff;
 	--ion-color-primary-rgb: 56, 128, 255;
