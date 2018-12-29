@@ -10,7 +10,6 @@ import { ContactsPage } from "./contacts/contacts.page";
 import { MyProfilePage } from "./my-profile/my-profile.page";
 import * as firebase from "firebase";
 import { UserService } from "./shared/services/user.service";
-import { AuthService } from "./shared/services/auth.service";
 
 @Component({
 	selector: "app-root",
