@@ -1,15 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/toPromise";
-import { Observable } from "rxjs";
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/observable/forkJoin";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
+import { HttpClient } from "@angular/common/http";
+import { Observable, BehaviorSubject } from "rxjs";
 import { User, Photo } from "../models/user.model";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireDatabase } from "@angular/fire/database";
-import { BehaviorSubject } from "rxjs";
 import * as moment from "moment";
 import { UtilService } from "./util.service";
 
@@ -21,7 +15,7 @@ export class UserService {
 	private access_token = ``;
 
 	constructor(
-		public http: Http,
+		public http: HttpClient,
 		private afs: AngularFirestore,
 		private db: AngularFireDatabase,
 		public utilSrvc: UtilService

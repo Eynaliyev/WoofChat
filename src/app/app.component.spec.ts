@@ -1,12 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { TestBed, async, tick, fakeAsync } from "@angular/core/testing";
+import { TestBed, async } from "@angular/core/testing";
+import { HttpClientModule } from "@angular/common/http";
 
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AppComponent } from "./app.component";
-
+import { UserService } from "./shared/services/user.service";
+class MockUserService {}
 describe("AppComponent", () => {
 	let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
 
@@ -18,8 +20,10 @@ describe("AppComponent", () => {
 
 		TestBed.configureTestingModule({
 			declarations: [AppComponent],
+			imports: [HttpClientModule],
 			schemas: [CUSTOM_ELEMENTS_SCHEMA],
 			providers: [
+				{ provide: UserService, useValue: MockUserService },
 				{ provide: StatusBar, useValue: statusBarSpy },
 				{ provide: SplashScreen, useValue: splashScreenSpy },
 				{ provide: Platform, useValue: platformSpy }

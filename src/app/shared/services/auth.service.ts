@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/map";
+import { HttpClient } from "@angular/common/http";
 import * as firebase from "firebase";
 import { UserService } from "./user.service";
 import { User } from "../models/user.model";
@@ -20,7 +19,7 @@ import {
 })
 export class AuthService {
 	constructor(
-		public http: Http,
+		public http: HttpClient,
 		private _firebaseAuth: AngularFireAuth,
 		public userService: UserService,
 		private afs: AngularFirestore
