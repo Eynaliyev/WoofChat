@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/map";
+import { HttpClient } from "@angular/common/http";
 import { AlertController } from "@ionic/angular";
-import * as moment from "moment";
 
 /*
   Generated class for the UtilService provider.
@@ -13,7 +11,7 @@ import * as moment from "moment";
 	providedIn: "root"
 })
 export class UtilService {
-	constructor(public http: Http, public alertCtrl: AlertController) {}
+	constructor(public http: HttpClient, public alertCtrl: AlertController) {}
 	// generate a random name to put in firebase storage
 	guid() {
 		function s4() {
