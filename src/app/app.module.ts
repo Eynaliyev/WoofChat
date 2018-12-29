@@ -11,10 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AgmCoreModule } from "@agm/core";
 import { Environment } from "../environments/environment";
-import { UserService } from "./shared/services/user.service";
-import { AuthService } from "./shared/services/auth.service";
 import { Geolocation } from "@ionic-native/geolocation";
-import { UtilService } from "./shared/services/util.service";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -31,10 +28,7 @@ import { UtilService } from "./shared/services/util.service";
 	providers: [
 		StatusBar,
 		SplashScreen,
-		UserService,
-		AuthService,
 		Geolocation,
-		UtilService,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],
 	bootstrap: [AppComponent]

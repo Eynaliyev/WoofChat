@@ -15,7 +15,9 @@ import {
   for more info on providers and Angular 2 DI.
 */
 
-@Injectable()
+@Injectable({
+	providedIn: "root"
+})
 export class AuthService {
 	constructor(
 		public http: Http,

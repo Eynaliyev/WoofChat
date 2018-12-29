@@ -9,7 +9,9 @@ import * as moment from "moment";
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-@Injectable()
+@Injectable({
+	providedIn: "root"
+})
 export class UtilService {
 	constructor(public http: Http, public alertCtrl: AlertController) {}
 	// generate a random name to put in firebase storage
