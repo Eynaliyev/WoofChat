@@ -13,7 +13,9 @@ import { BehaviorSubject } from "rxjs";
 import * as moment from "moment";
 import { UtilService } from "./util.service";
 
-@Injectable()
+@Injectable({
+	providedIn: "root"
+})
 export class UserService {
 	public currentUser: BehaviorSubject<User>;
 	private access_token = ``;
