@@ -1,5 +1,4 @@
-ion-content {
-	overflow-y: hidden;
+.content {
 	@media screen and (max-width: 769px) {
 		button {
 			top: -21vw;
@@ -15,70 +14,41 @@ ion-content {
 			top: 21px;
 		}
 	}
-	ion-slides {
-		height: 100%;
-		width: 88vw;
-		margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+	width: 100%;
+	overflow-y: hidden;
+	h3 {
+		color: white;
+		text-align: center;
+		font-size: 3.2rem;
+		letter-spacing: -0.1rem;
+	}
+	#intro-logo img {
+		height: auto !important;
+		display: block;
+		height: auto;
 		margin-left: auto;
 		margin-right: auto;
-		ion-slide {
-			#login-heading {
-				color: #9b9999;
-				text-align: center;
-			}
-			img {
-				top: 0;
-				left: 0;
-			}
-			#login-button1 {
-				line-height: 42px;
-				background-color: #4267b2;
-				border-color: #4267b2;
-				color: #ffffff;
-				margin-left: auto;
-				margin-right: auto;
-				font-size: 14px;
-				width: 252px;
-				font-family: system-ui, -apple-system, BlinkMacSystemFont,
-					".SFNSText-Regular", sans-serif;
-			}
-			#intro-logo img {
-				height: auto !important;
-				display: block;
-				height: auto;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			.intro-img-screenshot {
-				max-width: 400px;
-				height: auto !important;
-				margin-left: auto;
-				margin-right: auto;
-				display: block;
-			}
-			h3 {
-				font-size: 3.2rem;
-				letter-spacing: -0.1rem;
-			}
-			p {
-				color: var(--ion-color-my-primary);
-				margin-left: auto;
-				margin-right: auto;
-				width: 70vw;
-				font-size: 1.2rem;
-			}
-		}
 	}
 	div.buttons {
 		text-align: center;
-		bottom: 72px;
 		z-index: 100;
+		bottom: 72px;
 		button {
 			width: 50vw;
-			z-index: 100;
-			position: relative;
+			line-height: 42px;
 			border-radius: 0 !important;
+			background-color: #4267b2;
+			border-color: #4267b2;
+			color: white;
 			margin-bottom: 1vh;
+			margin-left: auto;
+			margin-right: auto;
+			font-size: 14px;
+			font-family: system-ui, -apple-system, BlinkMacSystemFont,
+				".SFNSText-Regular", sans-serif;
 		}
 	}
 }
