@@ -16,7 +16,8 @@ const routes: Routes = [
 	{
 		path: "my-profile",
 		loadChildren: "./my-profile/my-profile.module#MyProfilePageModule"
-	}
+	},
+  { path: 'chatroom', loadChildren: './chatroom/chatroom.module#ChatroomPageModule' }
 ];
 
 @NgModule({
