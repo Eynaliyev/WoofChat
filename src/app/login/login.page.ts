@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
 	}
 	retryLogin(lastTry) {
 		if (lastTry) {
-			// do nothing, this was a last try
+			return; // do nothing, this was a last try
 		} else {
 			this.facebookLogin(true);
 		}

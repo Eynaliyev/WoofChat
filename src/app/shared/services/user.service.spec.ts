@@ -7,10 +7,39 @@ import { HttpClientModule } from "@angular/common/http";
 import { UtilService } from "./util.service";
 class MockUtilService {}
 class MockAngularFireDatabase {}
-class MockAngularFirestore {}
+class MockAngularFirestore {
+	doc(id: string) {
+		return {
+			about: "",
+			birthday: "07/20/1992",
+			company: "",
+			currentCoords: [],
+			currentLocation: [],
+			email: "rustam.eynaliyev@gmail.com",
+			firstName: "Rustam",
+			gender: "male",
+			id: "10214421283799938",
+			interests: [],
+			languages: ["en_US"],
+			lastName: "Eynaliyev",
+			photos: [{ imgUrl: "" }],
+			profilePhoto: {
+				imgUrl:
+					"https://platform-lookaside.fbsbx.com/platform/prof…00&width=200&ext=1537215079&hash=AeSs3WAO9X4_R0kF"
+			},
+			relationshipStatus: [],
+			reputationScore: 0,
+			socialProfiles: [],
+			universityName: "",
+			vipStatus: {},
+			warning: ""
+		};
+	}
+}
 
 describe("UserService", () => {
-	beforeEach(() =>
+	let service: UserService;
+	beforeEach(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientModule],
 			providers: [
@@ -18,11 +47,15 @@ describe("UserService", () => {
 				{ provide: AngularFireDatabase, useValue: MockAngularFireDatabase },
 				{ provide: AngularFirestore, useValue: MockAngularFirestore }
 			]
-		})
-	);
+		});
+		service = TestBed.get(UserService);
+	});
 
 	it("should be created", () => {
-		const service: UserService = TestBed.get(UserService);
 		expect(service).toBeTruthy();
 	});
+
+	/*it("should return a user Observable", () => {
+		expect(service.getUserById("id")).toBeTruthy();
+	});*/
 });
